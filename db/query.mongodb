@@ -1,0 +1,256 @@
+use("db_citas");
+db.createCollection("cita",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["cit_codigo","cit_fecha", "cit_estado", "cit_medico", "cit_datosUsuarios"],
+                "properties": {
+                    "cit_codigo": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "cit_fecha": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "cit_estado": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "cit_medico": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "cit_datosUsuarios": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                }
+            }
+        }
+    }
+);
+use("db_citas");
+db.createCollection("usuario",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["usu_id","usu_nombre", "usu_segdo_nombre", "usu_primer_apellido_usur", "usu_segdo_apellido_usur","usu_telefono","usu_direccion","usu_e-mail","usu_tipodoc","usu_genero","usu_acudiente"],
+                "properties": {
+                    "usu_id": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "usu_nombre": {
+                        "bsonType": "string",
+                    },
+                    "usu_segdo_nombre": {
+                        "bsonType": "string","bsonType": "string",
+                    },
+                    "usu_primer_apellido_usur": {
+                        "bsonType": "string","bsonType": "string",
+                    },
+                    "usu_segdo_apellido_usur": {
+                        "bsonType": "string","bsonType": "string",
+                    },
+                    "usu_telefono": {
+                        "bsonType": "string",
+                    },
+                    "usu_direccion": {
+                        "bsonType": "string",
+                    },
+                    "usu_e-mail": {
+                        "bsonType": "string",
+                    },
+                    "usu_tipodoc": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "usu_genero": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "usu_acudiente": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                }
+            }
+        }
+    }
+);
+use("db_citas");
+db.createCollection("acudiente",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["acu_codigo","acu_nombreCompleto", "acu_telefono", "acu_direccion"],
+                "properties": {
+                    "acu_codigo": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "acu_nombreCompleto": {
+                        "bsonType": "string",
+                    },
+                    "acu_telefono": {
+                        "bsonType": "string",
+                    },
+                    "acu_direccion": {
+                        "bsonType": "string"
+                    }
+                }
+            }
+        }
+    }
+);
+use("db_citas");
+db.createCollection("especialidad",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["esp_id","esp_nombre"],
+                "properties": {
+                    "esp_id": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "esp_nombre": {
+                        "bsonType": "string"
+                    },
+                }
+            }
+        }
+    }
+);
+use("db_citas");
+db.createCollection("consultorio",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["cons_codigo","cons_nombre"],
+                "properties": {
+                    "cons_codigo": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "cons_nombre": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    }
+                }
+            }
+        }
+    }
+);
+use("db_citas");
+db.createCollection("estado_cita",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["estcita_id","estcita_nombre"],
+                "properties": {
+                    "estcita_id": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "estcita_nombre": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    }
+                }
+            }
+        }
+    }
+);
+use("db_citas");
+db.createCollection("genero",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["gen_id","gen_nombre", "gen_abreiatura"],
+                "properties": {
+                    "gen_id": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "gen_nombre": {
+                        "bsonType": "string"
+                    },
+                    "gen_abreiatura": {
+                        "bsonType": "string"
+                    }
+                }
+            }
+        }
+    }
+);
+use("db_citas");
+db.createCollection("medico",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["med_nroMatriculaProsional","med_nombreCompleto", "med_consultorio", "med_especialidad"],
+                "properties": {
+                    "med_nroMatriculaProsional": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "med_nombreCompleto": {
+                        "bsonType": "string"
+                    },
+                    "med_consultorio": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "med_especialidad": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    }
+                }
+            }
+        }
+    }
+);
+use("db_citas");
+db.createCollection("tipo_documento",{
+    validator:{
+        $jsonSchema:{
+                "bsonType": "object",
+                "required": ["tipdoc_id","tipdoc_nombre", "tipdoc_abreviatura"],
+                "properties": {
+                    "tipdoc_id": {
+                        "bsonType": "int",
+                        "minimum": 2,
+                        "maximum": 13
+                    },
+                    "tipdoc_nombre": {
+                        "bsonType": "string"
+                    },
+                    "tipdoc_abreviatura": {
+                        "bsonType": "string",
+                    }
+                }
+            }
+        }
+    }
+);

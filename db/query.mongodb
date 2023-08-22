@@ -1,256 +1,335 @@
 use("db_citas");
-db.createCollection("cita",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["cit_codigo","cit_fecha", "cit_estado", "cit_medico", "cit_datosUsuarios"],
-                "properties": {
-                    "cit_codigo": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "cit_fecha": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "cit_estado": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "cit_medico": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "cit_datosUsuarios": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                }
+db.createCollection("cita", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["cit_codigo", "cit_fecha", "cit_estado", "cit_medico", "cit_datosUsuarios"],
+            properties: {
+                cit_codigo: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo cit_codigo debe ser un número y estar comprendido entre 0 y 20"
+                },
+                cit_fecha: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo cit_fecha debe ser un número y estar comprendido entre 0 y 20"
+                },
+                cit_estado: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo cit_estado debe ser un número y estar comprendido entre 0 y 20"
+                },
+                cit_medico: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo cit_medico debe ser un número y estar comprendido entre 0 y 20"
+                },
+                cit_datosUsuarios: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo cit_datosUsuarios debe ser un número y estar comprendido entre 0 y 20"
+                },
             }
         }
     }
-);
+});
 use("db_citas");
-db.createCollection("usuario",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["usu_id","usu_nombre", "usu_segdo_nombre", "usu_primer_apellido_usur", "usu_segdo_apellido_usur","usu_telefono","usu_direccion","usu_e-mail","usu_tipodoc","usu_genero","usu_acudiente"],
-                "properties": {
-                    "usu_id": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "usu_nombre": {
-                        "bsonType": "string",
-                    },
-                    "usu_segdo_nombre": {
-                        "bsonType": "string","bsonType": "string",
-                    },
-                    "usu_primer_apellido_usur": {
-                        "bsonType": "string","bsonType": "string",
-                    },
-                    "usu_segdo_apellido_usur": {
-                        "bsonType": "string","bsonType": "string",
-                    },
-                    "usu_telefono": {
-                        "bsonType": "string",
-                    },
-                    "usu_direccion": {
-                        "bsonType": "string",
-                    },
-                    "usu_e-mail": {
-                        "bsonType": "string",
-                    },
-                    "usu_tipodoc": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "usu_genero": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "usu_acudiente": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                }
+db.createCollection("usuario", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["usu_id", "usu_nombre", "usu_segdo_nombre", "usu_primer_apellido_usur", "usu_segdo_apellido_usur", "usu_telefono", "usu_direccion", "usu_e-mail", "usu_tipodoc", "usu_genero", "usu_acudiente"],
+            properties: {
+                usu_id: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo usu_id debe ser un número y estar comprendido entre 0 y 20"
+                },
+                usu_nombre: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo usu_nombre y este debe ser un string",
+                },
+                usu_segdo_nombre: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo usu_segdo_nombre y este debe ser un string",
+                },
+                usu_primer_apellido_usur: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo usu_primer_apellido_usur y este debe ser un string",
+                },
+                usu_segdo_apellido_usur: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo usu_segdo_apellido_usur y este debe ser un string",
+                },
+                usu_telefono: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
+                },
+                usu_direccion: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo address y este debe ser un string",
+                },
+                usu_email: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                    description: "Debe informar un campo Email válido"
+                },
+                usu_tipodoc: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                },
+                usu_genero: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                },
+                usu_acudiente: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                },
             }
         }
     }
-);
+});
 use("db_citas");
-db.createCollection("acudiente",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["acu_codigo","acu_nombreCompleto", "acu_telefono", "acu_direccion"],
-                "properties": {
-                    "acu_codigo": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "acu_nombreCompleto": {
-                        "bsonType": "string",
-                    },
-                    "acu_telefono": {
-                        "bsonType": "string",
-                    },
-                    "acu_direccion": {
-                        "bsonType": "string"
-                    }
+db.createCollection("acudiente", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["acu_codigo", "acu_nombreCompleto", "acu_telefono", "acu_direccion"],
+            properties: {
+                acu_codigo: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                },
+                acu_nombreCompleto: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo name y este debe ser un string",
+                },
+                acu_telefono: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
+                },
+                acu_direccion: {
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
                 }
             }
         }
     }
-);
+});
 use("db_citas");
-db.createCollection("especialidad",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["esp_id","esp_nombre"],
-                "properties": {
-                    "esp_id": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "esp_nombre": {
-                        "bsonType": "string"
-                    },
-                }
+db.createCollection("especialidad", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["esp_id", "esp_nombre"],
+            properties: {
+                esp_id: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                },
+                esp_nombre: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo name y este debe ser un string",
+                },
             }
         }
     }
-);
+});
 use("db_citas");
-db.createCollection("consultorio",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["cons_codigo","cons_nombre"],
-                "properties": {
-                    "cons_codigo": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "cons_nombre": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    }
+db.createCollection("consultorio", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["cons_codigo", "cons_nombre"],
+            properties: {
+                cons_codigo: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                },
+                cons_nombre: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
                 }
             }
         }
     }
-);
+});
 use("db_citas");
-db.createCollection("estado_cita",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["estcita_id","estcita_nombre"],
-                "properties": {
-                    "estcita_id": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "estcita_nombre": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    }
+db.createCollection("estado_cita", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["estcita_id", "estcita_nombre"],
+            properties: {
+                estcita_id: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                },
+                estcita_nombre: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
                 }
             }
         }
     }
-);
+});
 use("db_citas");
-db.createCollection("genero",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["gen_id","gen_nombre", "gen_abreiatura"],
-                "properties": {
-                    "gen_id": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "gen_nombre": {
-                        "bsonType": "string"
-                    },
-                    "gen_abreiatura": {
-                        "bsonType": "string"
-                    }
+db.createCollection("genero", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["gen_id", "gen_nombre", "gen_abreiatura"],
+            properties: {
+                gen_id: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                },
+                gen_nombre: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo name y este debe ser un string",
+                },
+                gen_abreiatura: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo name y este debe ser un string",
                 }
             }
         }
     }
-);
+});
 use("db_citas");
-db.createCollection("medico",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["med_nroMatriculaProsional","med_nombreCompleto", "med_consultorio", "med_especialidad"],
-                "properties": {
-                    "med_nroMatriculaProsional": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "med_nombreCompleto": {
-                        "bsonType": "string"
-                    },
-                    "med_consultorio": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "med_especialidad": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    }
+db.createCollection("medico", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["med_nroMatriculaProsional", "med_nombreCompleto", "med_consultorio", "med_especialidad"],
+            properties: {
+                med_nroMatriculaProsional: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo update_by debe ser un número y estar comprendido entre 0 y 20"
+                },
+                med_nombreCompleto: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo name y este debe ser un string",
+                },
+                med_consultorio: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo update_by debe ser un número y estar comprendido entre 0 y 20"
+                },
+                med_especialidad: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo update_by debe ser un número y estar comprendido entre 0 y 20"
                 }
             }
         }
     }
-);
+});
 use("db_citas");
-db.createCollection("tipo_documento",{
-    validator:{
-        $jsonSchema:{
-                "bsonType": "object",
-                "required": ["tipdoc_id","tipdoc_nombre", "tipdoc_abreviatura"],
-                "properties": {
-                    "tipdoc_id": {
-                        "bsonType": "int",
-                        "minimum": 2,
-                        "maximum": 13
-                    },
-                    "tipdoc_nombre": {
-                        "bsonType": "string"
-                    },
-                    "tipdoc_abreviatura": {
-                        "bsonType": "string",
-                    }
+db.createCollection("tipo_documento", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["tipdoc_id", "tipdoc_nombre", "tipdoc_abreviatura"],
+            properties: {
+                tipdoc_id: {
+                    bsonType: "int",
+                    minimum: 0,
+                    maximum: 20,
+                    description: "El campo update_by debe ser un número y estar comprendido entre 0 y 20"
+                },
+                tipdoc_nombre: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo name y este debe ser un string",
+                },
+                tipdoc_abreviatura: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "Debe informar el campo name y este debe ser un string",
                 }
             }
         }
     }
-);
+});

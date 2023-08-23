@@ -16,10 +16,8 @@ db.createCollection("cita", {
                     description: "El campo cit_codigo debe ser un número y estar comprendido entre 0 y 20"
                 },
                 cit_fecha: {
-                    bsonType: "int",
-                    minimum: 0,
-                    maximum: 20,
-                    description: "El campo cit_fecha debe ser un número y estar comprendido entre 0 y 20"
+                    bsonType: "date",
+                    description: "El campo cit_fecha debe ser un date"
                 },
                 cit_estado: {
                     bsonType: "int",
@@ -30,7 +28,7 @@ db.createCollection("cita", {
                 cit_medico: {
                     bsonType: "int",
                     minimum: 0,
-                    maximum: 20,
+                    maximum: 999999,
                     description: "El campo cit_medico debe ser un número y estar comprendido entre 0 y 20"
                 },
                 cit_datosUsuarios: {
@@ -44,6 +42,44 @@ db.createCollection("cita", {
     }
 });
 use("db_citas");
+db.cita.insertMany([
+    {
+        cit_codigo:1,
+        cit_fecha: new Date(2023,6,12),
+        cit_estado:1,
+        cit_medico:123456,
+        cit_datosUsuarios:1
+    },
+    {
+        cit_codigo:2,
+        cit_fecha: new Date(2023,4,10),
+        cit_estado:2,
+        cit_medico:654321,
+        cit_datosUsuarios:2
+    },
+    {
+        cit_codigo:3,
+        cit_fecha: new Date(2023,6,18),
+        cit_estado:3,
+        cit_medico:213453,
+        cit_datosUsuarios:3
+    },
+    {
+        cit_codigo:4,
+        cit_fecha: new Date(2023,2,2),
+        cit_estado:4,
+        cit_medico:897654,
+        cit_datosUsuarios:4
+    },
+    {
+        cit_codigo:5,
+        cit_fecha: new Date(2023,12,1),
+        cit_estado:5,
+        cit_medico:123321,
+        cit_datosUsuarios:5
+    }
+])
+use("db_citas");
 db.createCollection("usuario", {
     capped: true,
     size: 1900,
@@ -52,7 +88,7 @@ db.createCollection("usuario", {
         $jsonSchema: {
             bsonType: "object",
             additionalProperties: false,
-            required: ["usu_id", "usu_nombre", "usu_segdo_nombre", "usu_primer_apellido_usur", "usu_segdo_apellido_usur", "usu_telefono", "usu_direccion", "usu_e-mail", "usu_tipodoc", "usu_genero", "usu_acudiente"],
+            required: ["usu_id", "usu_nombre", "usu_primer_apellido_usur", "usu_segdo_apellido_usur", "usu_telefono", "usu_direccion", "usu_email", "usu_tipodoc", "usu_genero"],
             properties: {
                 usu_id: {
                     bsonType: "int",
@@ -118,6 +154,74 @@ db.createCollection("usuario", {
     }
 });
 use("db_citas");
+db.usuario.insertMany([
+    {
+        usu_id:1,
+        usu_nombre:"juan",
+        usu_segdo_nombre:"david",
+        usu_primer_apellido_usur:"perez",
+        usu_segdo_apellido_usur:"numa",
+        usu_telefono:"3124567890",
+        usu_direccion:"Piedecuesta",
+        usu_email:"numa@gmail.com",
+        usu_tipodoc:1,
+        usu_genero:1,
+        usu_acudiente:1,
+    },
+    {
+        usu_id:2,
+        usu_nombre:"juan",
+        usu_segdo_nombre:"diego",
+        usu_primer_apellido_usur:"rodriguez",
+        usu_segdo_apellido_usur:"cuesta",
+        usu_telefono:"3124512390",
+        usu_direccion:"Giron",
+        usu_email:"diego@gmail.com",
+        usu_tipodoc:2,
+        usu_genero:2,
+        usu_acudiente:2,
+    },
+    {
+        usu_id:3,
+        usu_nombre:"david",
+        usu_segdo_nombre:"andres",
+        usu_primer_apellido_usur:"robayo",
+        usu_segdo_apellido_usur:"susto",
+        usu_telefono:"3121235430",
+        usu_direccion:"Bucaramanga",
+        usu_email:"david@gmail.com",
+        usu_tipodoc:3,
+        usu_genero:3,
+        usu_acudiente:3,
+    },
+    {
+        usu_id:4,
+        usu_nombre:"andrea",
+        usu_segdo_nombre:"vanessa",
+        usu_primer_apellido_usur:"narvaez",
+        usu_segdo_apellido_usur:"lopez",
+        usu_telefono:"3204567890",
+        usu_direccion:"Cartagena",
+        usu_email:"andrea@gmail.com",
+        usu_tipodoc:4,
+        usu_genero:4,
+        usu_acudiente:4,
+    },
+    {
+        usu_id:5,
+        usu_nombre:"jessica",
+        usu_segdo_nombre:"maria",
+        usu_primer_apellido_usur:"sanchez",
+        usu_segdo_apellido_usur:"duarte",
+        usu_telefono:"3004938377",
+        usu_direccion:"ibague",
+        usu_email:"jess@gmail.com",
+        usu_tipodoc:5,
+        usu_genero:5,
+        usu_acudiente:5,
+    }
+])
+use("db_citas");
 db.createCollection("acudiente", {
     capped: true,
     size: 1900,
@@ -154,6 +258,39 @@ db.createCollection("acudiente", {
     }
 });
 use("db_citas");
+db.acudiente.insertMany([
+    {
+        acu_codigo:1, 
+        acu_nombreCompleto:"Luisa Pérez",
+        acu_telefono:"1234567890",
+        acu_direccion:"Calle 123, Ciudad",
+    },
+    {
+        acu_codigo:2,
+        acu_nombreCompleto:"Pedro Gómez",
+        acu_telefono:"9876543210",
+        acu_direccion:"Avenida 456, Ciudad",
+    },
+    {
+        acu_codigo:3,
+        acu_nombreCompleto:"María Rodríguez",
+        acu_telefono:"5555555555",
+        acu_direccion:"Carrera 789, Ciudad",
+    },
+    {
+        acu_codigo:4,
+        acu_nombreCompleto:"Andrés Torres",
+        acu_telefono:"9999999999",
+        acu_direccion:"Calle Principal, Ciudad",
+    },
+    {
+        acu_codigo:5,
+        acu_nombreCompleto:"Laura Sánchez",
+        acu_telefono:"1111111111",
+        acu_direccion:"Avenida Central, Ciudad",
+    }
+])
+use("db_citas");
 db.createCollection("especialidad", {
     capped: true,
     size: 1900,
@@ -179,6 +316,29 @@ db.createCollection("especialidad", {
         }
     }
 });
+use("db_citas");
+db.especialidad.insertMany([
+    {
+        esp_id:1,
+        esp_nombre:"Cardiología",
+    },
+    {
+        esp_id:2,
+        esp_nombre:"Dermatología",
+    },
+    {
+        esp_id:3,
+        esp_nombre:"Pediatría",
+    },
+    {
+        esp_id:4,
+        esp_nombre:"Oftalmología",
+    },
+    {
+        esp_id:5,
+        esp_nombre:"Gastroenterología",
+    }
+])
 use("db_citas");
 db.createCollection("consultorio", {
     capped: true,
@@ -207,6 +367,29 @@ db.createCollection("consultorio", {
     }
 });
 use("db_citas");
+db.consultorio.insertMany([
+    {
+        cons_codigo:1,
+        cons_nombre:"Consultorio A",
+    },
+    {
+        cons_codigo:2,
+        cons_nombre:"Consultorio B",
+    },
+    {
+        cons_codigo:3,
+        cons_nombre:"Consultorio C",
+    },
+    {
+        cons_codigo:4,
+        cons_nombre:"Consultorio D",
+    },
+    {
+        cons_codigo:5,
+        cons_nombre:"Consultorio E",
+    }
+])
+use("db_citas");
 db.createCollection("estado_cita", {
     capped: true,
     size: 1900,
@@ -233,6 +416,29 @@ db.createCollection("estado_cita", {
         }
     }
 });
+use("db_citas");
+db.estado_cita.insertMany([
+    {
+        estcita_id:1,
+        estcita_nombre:"Pendiente",
+    },
+    {
+        estcita_id:2,
+        estcita_nombre:"Confirmada",
+    },
+    {
+        estcita_id:3,
+        estcita_nombre:"Cancelada",
+    },
+    {
+        estcita_id:4,
+        estcita_nombre:"Realizada",
+    },
+    {
+        estcita_id:5,
+        estcita_nombre:"Ausente",
+    }
+])
 use("db_citas");
 db.createCollection("genero", {
     capped: true,
@@ -264,6 +470,34 @@ db.createCollection("genero", {
         }
     }
 });
+use("db_citas");
+db.genero.insertMany([
+    {
+        gen_id:1,
+        gen_nombre:"Masculino",
+        gen_abreiatura:"M"
+    },
+    {
+        gen_id:2,
+        gen_nombre:"Femenino",
+        gen_abreiatura:"F"
+    },
+    {
+        gen_id:3,
+        gen_nombre:"Otro",
+        gen_abreiatura:"O"
+    },
+    {
+        gen_id:4,
+        gen_nombre:"Bisexual",
+        gen_abreiatura:"B"
+    },
+    {
+        gen_id:5,
+        gen_nombre:"Pansexual",
+        gen_abreiatura:"P"
+    }
+])
 use("db_citas");
 db.createCollection("medico", {
     capped: true,
@@ -303,6 +537,39 @@ db.createCollection("medico", {
     }
 });
 use("db_citas");
+db.medico.insertMany([
+    {
+        med_nroMatriculaProsional:123456,
+        med_nombreCompleto:"Dr. Juan Pérez",
+        med_consultorio:1,
+        med_especialidad:1,
+    },
+    {
+        med_nroMatriculaProsional:234567,
+        med_nombreCompleto:"Dra. Ana Rodríguez",
+        med_consultorio:2,
+        med_especialidad:2,
+    },
+    {
+        med_nroMatriculaProsional:345678,
+        med_nombreCompleto:"Dr. Luis Martínez",
+        med_consultorio:3,
+        med_especialidad:3,
+    },
+    {
+        med_nroMatriculaProsional:456789,
+        med_nombreCompleto:"Dra. Laura Gómez",
+        med_consultorio:4,
+        med_especialidad:4,
+    },
+    {
+        med_nroMatriculaProsional:567890,
+        med_nombreCompleto:"Dr. Carlos Sánchez",
+        med_consultorio:5,
+        med_especialidad:5,
+    }
+])
+use("db_citas");
 db.createCollection("tipo_documento", {
     capped: true,
     size: 1900,
@@ -333,3 +600,31 @@ db.createCollection("tipo_documento", {
         }
     }
 });
+use("db_citas");
+db.tipo_documento.insertMany([
+    {   
+        tipdoc_id:1,
+        tipdoc_nombre:"Cedula de Ciudadania",
+        tipdoc_abreviatura:"CC"
+    },
+    {   
+        tipdoc_id:2,
+        tipdoc_nombre:"Tarjeta de Identidad",
+        tipdoc_abreviatura:"TI"
+    },
+    {   
+        tipdoc_id:3,
+        tipdoc_nombre:"Pasaporte",
+        tipdoc_abreviatura:"PA"
+    },
+    {   
+        tipdoc_id:4,
+        tipdoc_nombre:"Registro Civil",
+        tipdoc_abreviatura:"RC"
+    },
+    {   
+        tipdoc_id:5,
+        tipdoc_nombre:"Carnte Diplomatico",
+        tipdoc_abreviatura:"CD"
+    },
+])

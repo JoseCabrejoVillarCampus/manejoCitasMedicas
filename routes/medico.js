@@ -22,9 +22,9 @@ const getMedicosById = (id)=>{
             },
             {
                 $project: {
-                    "codTarjetaProfesional": "$med_nroMatriculaProsional",
+                    "matriculaMedica": "$med_nroMatriculaProsional",
                     "nombreMedico": "$med_nombreCompleto",
-                    "direccion": "$med_consultorio",
+                    "consultorio": "$med_consultorio",
                     "especialidad": "$med_especialidad"
                 }
             }
@@ -37,9 +37,9 @@ const getMedicosAll = ()=>{
         let result = await medico.aggregate([
             {
                 $project: {
-                    "codTarjetaProfesional": "$med_nroMatriculaProsional",
+                    "matriculaMedica": "$med_nroMatriculaProsional",
                     "nombreMedico": "$med_nombreCompleto",
-                    "direccion": "$med_consultorio",
+                    "consultorio": "$med_consultorio",
                     "especialidad": "$med_especialidad"
                 }
             }
@@ -73,11 +73,11 @@ storageMedico.post("/", limitGet(), appMiddlewareMedicosVerify, appDTODataMedico
         let result = await medico.insertOne(req.body);
         res.status(201).send(result);
     } catch (error){
-        const err = plainToClass(DTO("mongo").class, error.errInfo.details.schemaRulesNotSatisfied)
+        /* const err = plainToClass(DTO("mongo").class, error.errInfo.details.schemaRulesNotSatisfied)
 
-        const errorList = processErrors(err, Acudiente);
+        const errorList = processErrors(err, Medico);
 
-        res.send(err);
+        res.send(err); */
     }
 });
 storageMedico.put("/:id?", limitGet(), appMiddlewareMedicosVerify, appDTOParamMedicos , appDTODataMedicos, async(req, res)=>{

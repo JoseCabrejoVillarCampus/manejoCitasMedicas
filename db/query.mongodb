@@ -1,7 +1,7 @@
 use("db_citas");
 db.createCollection("cita", {
     capped: true,
-    size: 1900,
+    size: 10000,
     max: 5,
     validator: {
         $jsonSchema: {
@@ -9,6 +9,9 @@ db.createCollection("cita", {
             additionalProperties: false,
             required: ["cit_codigo", "cit_fecha", "cit_estado", "cit_medico", "cit_datosUsuarios"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 cit_codigo: {
                     bsonType: "int",
                     minimum: 0,
@@ -90,6 +93,9 @@ db.createCollection("usuario", {
             additionalProperties: false,
             required: ["usu_id", "usu_nombre", "usu_primer_apellido_usur", "usu_segdo_apellido_usur", "usu_telefono", "usu_direccion", "usu_email", "usu_tipodoc", "usu_genero"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 usu_id: {
                     bsonType: "int",
                     minimum: 0,
@@ -232,6 +238,9 @@ db.createCollection("acudiente", {
             additionalProperties: false,
             required: ["acu_codigo", "acu_nombreCompleto", "acu_telefono", "acu_direccion"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 acu_codigo: {
                     bsonType: "int",
                     minimum: 0,
@@ -240,7 +249,7 @@ db.createCollection("acudiente", {
                 },
                 acu_nombreCompleto: {
                     bsonType: "string",
-                    pattern: "^[A-Za-z\\s]+$",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
                     description: "Debe informar el campo name y este debe ser un string",
                 },
                 acu_telefono: {
@@ -301,6 +310,9 @@ db.createCollection("especialidad", {
             additionalProperties: false,
             required: ["esp_id", "esp_nombre"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 esp_id: {
                     bsonType: "int",
                     minimum: 0,
@@ -309,7 +321,7 @@ db.createCollection("especialidad", {
                 },
                 esp_nombre: {
                     bsonType: "string",
-                    pattern: "^[A-Za-z\\s]+$",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
                     description: "Debe informar el campo name y este debe ser un string",
                 },
             }
@@ -350,6 +362,9 @@ db.createCollection("consultorio", {
             additionalProperties: false,
             required: ["cons_codigo", "cons_nombre"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 cons_codigo: {
                     bsonType: "int",
                     minimum: 0,
@@ -357,10 +372,9 @@ db.createCollection("consultorio", {
                     description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
                 },
                 cons_nombre: {
-                    bsonType: "int",
-                    minimum: 0,
-                    maximum: 20,
-                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
                 }
             }
         }
@@ -400,6 +414,9 @@ db.createCollection("estado_cita", {
             additionalProperties: false,
             required: ["estcita_id", "estcita_nombre"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 estcita_id: {
                     bsonType: "int",
                     minimum: 0,
@@ -407,10 +424,9 @@ db.createCollection("estado_cita", {
                     description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
                 },
                 estcita_nombre: {
-                    bsonType: "int",
-                    minimum: 0,
-                    maximum: 20,
-                    description: "El campo estado debe ser un número y estar comprendido entre 0 y 20"
+                    bsonType: "string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
                 }
             }
         }
@@ -450,6 +466,9 @@ db.createCollection("genero", {
             additionalProperties: false,
             required: ["gen_id", "gen_nombre", "gen_abreiatura"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 gen_id: {
                     bsonType: "int",
                     minimum: 0,
@@ -458,13 +477,13 @@ db.createCollection("genero", {
                 },
                 gen_nombre: {
                     bsonType: "string",
-                    pattern: "^[A-Za-z\\s]+$",
-                    description: "Debe informar el campo name y este debe ser un string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
                 },
                 gen_abreiatura: {
                     bsonType: "string",
-                    pattern: "^[A-Za-z\\s]+$",
-                    description: "Debe informar el campo name y este debe ser un string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
                 }
             }
         }
@@ -509,16 +528,19 @@ db.createCollection("medico", {
             additionalProperties: false,
             required: ["med_nroMatriculaProsional", "med_nombreCompleto", "med_consultorio", "med_especialidad"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 med_nroMatriculaProsional: {
                     bsonType: "int",
                     minimum: 0,
-                    maximum: 20,
+                    maximum: 999999,
                     description: "El campo update_by debe ser un número y estar comprendido entre 0 y 20"
                 },
                 med_nombreCompleto: {
                     bsonType: "string",
-                    pattern: "^[A-Za-z\\s]+$",
-                    description: "Debe informar el campo name y este debe ser un string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
                 },
                 med_consultorio: {
                     bsonType: "int",
@@ -580,6 +602,9 @@ db.createCollection("tipo_documento", {
             additionalProperties: false,
             required: ["tipdoc_id", "tipdoc_nombre", "tipdoc_abreviatura"],
             properties: {
+                _id: {
+                    bsonType: 'objectId',
+                },
                 tipdoc_id: {
                     bsonType: "int",
                     minimum: 0,
@@ -588,13 +613,13 @@ db.createCollection("tipo_documento", {
                 },
                 tipdoc_nombre: {
                     bsonType: "string",
-                    pattern: "^[A-Za-z\\s]+$",
-                    description: "Debe informar el campo name y este debe ser un string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
                 },
                 tipdoc_abreviatura: {
                     bsonType: "string",
-                    pattern: "^[A-Za-z\\s]+$",
-                    description: "Debe informar el campo name y este debe ser un string",
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "Debe informar el campo usu_telefono y este debe ser un string"
                 }
             }
         }

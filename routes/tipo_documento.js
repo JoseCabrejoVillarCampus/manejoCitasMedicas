@@ -71,7 +71,7 @@ storageDocumento.post("/", limitGet(), appMiddlewareDocumentosVerify, appDTOData
     } catch (error){
         const err = plainToClass(DTO("mongo").class, error.errInfo.details.schemaRulesNotSatisfied)
 
-        const errorList = processErrors(err, Acudiente);
+        const errorList = processErrors(err, Documento);
 
         res.send(err);
     }

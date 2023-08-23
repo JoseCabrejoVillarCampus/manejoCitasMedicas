@@ -4,6 +4,7 @@ import { DTO } from '../limit/token.js';
 import {Parametros} from '../controllers/parametros.js';
 import { Router } from "express";
 import { validate } from 'class-validator';
+import { Medico } from '../controllers/medicodto.js';
 const appMiddlewareMedicosVerify = Router();
 const appDTODataMedicos = Router();
 const appDTOParamMedicos= Router();
